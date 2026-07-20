@@ -1,4 +1,10 @@
 package com.wakeupdev.steviabank.modules.customer;
 
-public class CustomerResponse {
+public record CustomerResponse (
+        Long id,
+        String firstName,
+        String lastName,
+        String email,
+        String phoneNumber
+){
 }

@@ -26,6 +26,8 @@ public class Customer {
     @Column(unique = true, nullable = false)
     private String email;
 
+    private String password;
+
     // A customer can have multiple accounts (Savings, Checking, etc.)
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Account> accounts;

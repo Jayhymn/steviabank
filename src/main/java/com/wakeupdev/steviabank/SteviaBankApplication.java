@@ -1,4 +1,4 @@
-package com.wakeupdev.Stevia.Bank;
+package com.wakeupdev.steviabank;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

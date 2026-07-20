@@ -1,6 +1,7 @@
 package com.wakeupdev.steviabank.modules.accounts;
 
 
+import com.wakeupdev.steviabank.modules.customer.Customer;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 @Entity
 @Setter
 @Getter
+@Table(name = "accounts")
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +21,8 @@ public class Account {
     private String accountNumber;
 
     private BigDecimal balance;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
 }

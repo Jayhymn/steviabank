@@ -1,8 +1,11 @@
 package com.wakeupdev.steviabank.modules.customer;
 
+import com.wakeupdev.steviabank.modules.accounts.Account;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter

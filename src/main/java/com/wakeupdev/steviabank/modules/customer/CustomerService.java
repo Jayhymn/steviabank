@@ -4,6 +4,8 @@ package com.wakeupdev.steviabank.modules.customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
@@ -30,5 +32,18 @@ public class CustomerService {
                 savedCustomer.getEmail(),
                 savedCustomer.getPhoneNumber()
         );
+    }
+
+    public List<CustomerResponse> findAllCustomers() {
+        List<Customer> customers = customerRepository.findAll();
+        return customers.stream()
+                .map(customer -> new CustomerResponse(
+                        customer.getId(),
+                        customer.getFirstName(),
+                        customer.getLastName(),
+                        customer.getEmail(),
+                        customer.getPhoneNumber()
+                ))
+                .toList();
     }
 }

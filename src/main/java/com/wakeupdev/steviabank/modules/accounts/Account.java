@@ -20,9 +20,12 @@ public class Account {
     @Column(nullable = false, unique = true, length = 10)
     private String accountNumber;
 
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.ZERO;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
+
+    @Enumerated(EnumType.STRING)
+    private AccountType accountType;
 }

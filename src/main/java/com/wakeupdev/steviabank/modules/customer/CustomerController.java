@@ -1,6 +1,7 @@
 package com.wakeupdev.steviabank.modules.customer;
 
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping("/register")
-    public CustomerResponse createCustomer(@RequestBody CustomerRequest customerRequest) {
+    public CustomerResponse createCustomer(@Valid @RequestBody CustomerRequest customerRequest) {
         return customerService.register(customerRequest);
     }
 

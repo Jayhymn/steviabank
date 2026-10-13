@@ -1,0 +1,9 @@
+# Copy this file to gradle.properties and fill in values for your environment.
+# gradle.properties is gitignored because it may contain corporate proxy details.
+# Uncomment and set only if you are behind a proxy:
+
+# systemProp.http.proxyHost=your.proxy.host
+# systemProp.http.proxyPort=8080
+# systemProp.https.proxyHost=your.proxy.host
+# systemProp.https.proxyPort=8080
+# systemProp.http.nonProxyHosts=localhost|127.0.0.1

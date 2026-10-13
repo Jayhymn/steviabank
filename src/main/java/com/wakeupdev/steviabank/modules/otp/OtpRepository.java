@@ -1,0 +1,12 @@
+package com.wakeupdev.steviabank.modules.otp;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Locale;
+import java.util.Optional;
+
+@Repository
+public interface OtpRepository extends JpaRepository<Otp, Long> {
+    Optional<Otp> findByPhoneNumberAndCode(String phoneNumber, String code);
+}

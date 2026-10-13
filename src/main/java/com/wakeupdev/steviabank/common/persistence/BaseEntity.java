@@ -14,6 +14,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
 
+/**
+ * Shared superclass (no table of its own) holding the id and auto-populated auditing
+ * timestamps. The AuditingEntityListener is inherited by all subclasses; it only fires
+ * when entities are flushed through the ORM. Requires JpaAuditingConfig to be enabled.
+ */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Getter

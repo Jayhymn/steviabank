@@ -8,6 +8,7 @@ gradlew.bat
 gradle/
 gradlew
 .gitattributes
+.DS_Store
 
 ### STS ###
 .apt_generated

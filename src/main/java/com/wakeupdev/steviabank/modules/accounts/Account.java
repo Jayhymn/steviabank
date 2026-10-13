@@ -1,6 +1,7 @@
 package com.wakeupdev.steviabank.modules.accounts;
 
 
+import com.wakeupdev.steviabank.common.persistence.BaseEntity;
 import com.wakeupdev.steviabank.modules.customer.Customer;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -12,11 +13,7 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 @Table(name = "accounts")
-public class Account {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Account extends BaseEntity {
     @Column(nullable = false, unique = true, length = 10)
     private String accountNumber;
 

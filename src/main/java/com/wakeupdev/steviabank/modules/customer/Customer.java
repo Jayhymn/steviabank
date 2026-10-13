@@ -1,5 +1,6 @@
 package com.wakeupdev.steviabank.modules.customer;
 
+import com.wakeupdev.steviabank.common.persistence.BaseEntity;
 import com.wakeupdev.steviabank.modules.accounts.Account;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,10 +17,7 @@ import java.util.List;
 @Table(name = "customers")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Customer extends BaseEntity {
     private String firstName;
     private String lastName;
 

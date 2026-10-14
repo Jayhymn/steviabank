@@ -16,10 +16,7 @@ import java.util.List;
 @Table(name = "customers")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Customer extends BaseEntity {
     private String firstName;
     private String lastName;
 

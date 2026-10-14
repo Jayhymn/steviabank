@@ -10,6 +10,9 @@ gradlew
 .gitattributes
 .DS_Store
 
+### Local config (contains corporate proxy / secrets) ###
+gradle.properties
+
 ### STS ###
 .apt_generated
 .classpath

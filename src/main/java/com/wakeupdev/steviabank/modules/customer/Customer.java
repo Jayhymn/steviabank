@@ -1,5 +1,6 @@
 package com.wakeupdev.steviabank.modules.customer;
 
+import com.wakeupdev.steviabank.common.persistence.BaseEntity;
 import com.wakeupdev.steviabank.modules.accounts.Account;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

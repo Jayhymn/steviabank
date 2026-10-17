@@ -1,9 +1,14 @@
 HELP.md
 .gradle
 build/
+!gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+gradlew.bat
+gradle/
+gradlew
 .gitattributes
+.DS_Store
 
 ### Local config (contains corporate proxy / secrets) ###
 gradle.properties

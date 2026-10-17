@@ -8,6 +8,7 @@ import com.wakeupdev.steviabank.modules.accounts.AccountService;
 import com.wakeupdev.steviabank.modules.otp.OtpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class CustomerService {
     private final AccountService accountService;
     private final OtpService otpService;
 
+    @Transactional
     public CustomerResponse register(CustomerRequest customerRequest){
         if (customerRepository.existsByEmail(customerRequest.email())){
             throw new DuplicateEmailException("Email already exists");

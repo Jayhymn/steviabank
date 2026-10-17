@@ -1,5 +1,6 @@
 package com.wakeupdev.steviabank.modules.accounts;
 
+import com.wakeupdev.steviabank.common.exception.InvalidPhoneNumberException;
 import com.wakeupdev.steviabank.modules.customer.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class AccountService {
         else if (rawPhone.length() == 10) {
             accountNumber = rawPhone; // Already 10 digits
         } else {
-            throw new RuntimeException("Invalid Nigerian phone number format. Expected 11 digits starting with 0.");
+            throw new InvalidPhoneNumberException("Invalid Nigerian phone number format. Expected 11 digits starting with 0.");
         }
         return accountNumber;
     }

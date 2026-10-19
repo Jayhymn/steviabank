@@ -1,9 +1,11 @@
 package com.wakeupdev.steviabank.modules.otp;
 
 
+import com.wakeupdev.steviabank.common.sms.SmsSender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.concurrent.ThreadLocalRandom;
@@ -12,6 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @RequiredArgsConstructor
 public class OtpService {
     private final OtpRepository otpRepository;
+    private final SmsSender smsSender;
 
     public void sendOtp(String phoneNumber) {
         // 1. Generate 6 digit code
@@ -22,12 +25,13 @@ public class OtpService {
         otp.setPhoneNumber(phoneNumber);
         otp.setCode(code);
         otp.setCreatedAt(Instant.now());
-        otp.setExpiresAt(Instant.now().plusSeconds(300));
+        otp.setExpiresAt(Instant.now().plus(Duration.ofMinutes(5)));
 
         otpRepository.save(otp);
 
         // Mock SMS Sending
         System.out.printf("Sending OTP %s to phone number %s%n", code, phoneNumber);
+        smsSender.send(phoneNumber, "Your OTP code is: " + code);
     }
 
     public boolean validateOtp(String phoneNumber, String code) {

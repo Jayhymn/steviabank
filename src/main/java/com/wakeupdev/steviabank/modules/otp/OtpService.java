@@ -4,6 +4,7 @@ package com.wakeupdev.steviabank.modules.otp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -20,8 +21,8 @@ public class OtpService {
         Otp otp = new Otp();
         otp.setPhoneNumber(phoneNumber);
         otp.setCode(code);
-        otp.setCreatedAt(LocalDateTime.now());
-        otp.setExpiresAt(LocalDateTime.now().plusMinutes(5));
+        otp.setCreatedAt(Instant.now());
+        otp.setExpiresAt(Instant.now().plusSeconds(300));
 
         otpRepository.save(otp);
 
@@ -32,7 +33,7 @@ public class OtpService {
     public boolean validateOtp(String phoneNumber, String code) {
         return otpRepository.findByPhoneNumberAndCode(phoneNumber, code)
                 .filter(otp -> !otp.isUsed())
-                .filter(otp -> otp.getExpiresAt().isAfter(LocalDateTime.now()))
+                .filter(otp -> otp.getExpiresAt().isAfter(Instant.now()))
                 .map(otp -> {
                     otp.setUsed(true);
                     otpRepository.save(otp);

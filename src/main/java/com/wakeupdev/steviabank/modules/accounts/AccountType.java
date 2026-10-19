@@ -2,8 +2,6 @@ package com.wakeupdev.steviabank.modules.accounts;
 
 public enum AccountType {
     SAVINGS,
-    CHECKING,
-    BUSINESS,
-    DOMICILIARY,
+    CURRENT,
     FIXED_DEPOSIT
 }

@@ -25,4 +25,9 @@ public class Account extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
+
+    @Enumerated(EnumType.STRING)
+    private AccountStatus accountStatus;
+
+    private BigDecimal dailyLimit = BigDecimal.ZERO;
 }

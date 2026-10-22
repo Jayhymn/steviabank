@@ -1,6 +1,9 @@
 package com.wakeupdev.steviabank.modules.otp;
 
 
+import com.wakeupdev.steviabank.common.exception.ErrorCode;
+import com.wakeupdev.steviabank.common.exception.FieldViolation;
+import com.wakeupdev.steviabank.common.exception.OtpException;
 import com.wakeupdev.steviabank.common.sms.SmsSender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -8,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
@@ -35,13 +40,24 @@ public class OtpService {
     }
 
     public boolean validateOtp(String phoneNumber, String code) {
-        return otpRepository.findByPhoneNumberAndCode(phoneNumber, code)
-                .filter(otp -> !otp.isUsed())
-                .filter(otp -> otp.getExpiresAt().isAfter(Instant.now()))
-                .map(otp -> {
-                    otp.setUsed(true);
-                    otpRepository.save(otp);
-                    return true;
-                }).orElse(false);
+        Optional<Otp> otpCode = otpRepository.findByPhoneNumberAndCode(phoneNumber, code);
+        Otp presentOtp = otpCode.orElseThrow(() -> new OtpException(ErrorCode.OTP_INVALID, List.of(
+                new FieldViolation("No otp found","Invalid otp supplied for phone number")
+                )
+        ));
+
+        switch (presentOtp) {
+            case Otp o when o.isUsed() -> throw new OtpException(ErrorCode.OTP_ALREADY_USED, List.of(
+                    new FieldViolation("OTP already used", "This OTP has already been used")
+            ));
+            case Otp o when o.getExpiresAt().isBefore(Instant.now()) -> throw new OtpException(ErrorCode.OTP_EXPIRED, List.of(
+                    new FieldViolation("OTP expired", "This OTP has expired")
+            ));
+            default -> {
+                presentOtp.setUsed(true);
+                otpRepository.save(presentOtp);
+                return true;
+            }
+        }
     }
 }

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
@@ -42,16 +41,16 @@ public class OtpService {
     public boolean validateOtp(String phoneNumber, String code) {
         Optional<Otp> otpCode = otpRepository.findByPhoneNumberAndCode(phoneNumber, code);
         Otp presentOtp = otpCode.orElseThrow(() -> new OtpException(ErrorCode.OTP_INVALID, List.of(
-                new FieldViolation("No otp found","Invalid otp supplied for phone number")
+                new FieldViolation("otp", "Invalid OTP supplied for phone number")
                 )
         ));
 
         switch (presentOtp) {
             case Otp o when o.isUsed() -> throw new OtpException(ErrorCode.OTP_ALREADY_USED, List.of(
-                    new FieldViolation("OTP already used", "This OTP has already been used")
+                    new FieldViolation("otp", "This OTP has already been used")
             ));
             case Otp o when o.getExpiresAt().isBefore(Instant.now()) -> throw new OtpException(ErrorCode.OTP_EXPIRED, List.of(
-                    new FieldViolation("OTP expired", "This OTP has expired")
+                    new FieldViolation("otp", "This OTP has expired")
             ));
             default -> {
                 presentOtp.setUsed(true);

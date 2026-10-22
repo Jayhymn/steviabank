@@ -1,7 +1,6 @@
 package com.wakeupdev.steviabank.common.exception;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public record ErrorResponse(

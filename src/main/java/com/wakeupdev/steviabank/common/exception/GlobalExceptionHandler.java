@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.CONFLICT, ex.getMessage(), request);
     }
 
-    @ExceptionHandler({InvalidOtpException.class, InvalidPhoneNumberException.class})
+    @ExceptionHandler(InvalidPhoneNumberException.class)
     public ResponseEntity<ErrorResponse> handleInvalidInputException(RuntimeException ex, HttpServletRequest request) {
         return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
     }

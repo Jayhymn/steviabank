@@ -3,7 +3,6 @@ package com.wakeupdev.steviabank.modules.customer;
 
 import com.wakeupdev.steviabank.common.exception.DuplicateEmailException;
 import com.wakeupdev.steviabank.common.exception.DuplicatePhoneNumberException;
-import com.wakeupdev.steviabank.common.exception.InvalidOtpException;
 import com.wakeupdev.steviabank.modules.accounts.AccountService;
 import com.wakeupdev.steviabank.modules.otp.OtpService;
 import lombok.RequiredArgsConstructor;
@@ -29,10 +28,7 @@ public class CustomerService {
             throw new DuplicatePhoneNumberException("Phone number already registered");
         }
 
-        boolean isValid = otpService.validateOtp(customerRequest.phoneNumber(), customerRequest.otp());
-        if (!isValid) {
-            throw new InvalidOtpException("Invalid or expired OTP");
-        }
+        otpService.validateOtp(customerRequest.phoneNumber(), customerRequest.otp());
 
         Customer customer = new Customer();
         customer.setFirstName(customerRequest.firstName());
